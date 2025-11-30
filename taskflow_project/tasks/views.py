@@ -5,7 +5,7 @@ from .models import Task, Project
 @login_required
 def project_list(request):
     """ выводим список проектов пользователя """
-    projects = Project.objects.filter(member=request.user)
+    projects = Project.objects.filter(members=request.user)
     return render(request, 'tasks/project_list.html', {'projects': projects})
 
 @login_required
