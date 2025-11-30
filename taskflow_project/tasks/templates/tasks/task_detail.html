@@ -1,0 +1,42 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="task status-{{ task.status }}">
+    <h2>{{ task.title }}</h2>
+    <p><strong>Проект:</strong> {{ task.project.name }}</p>
+    <p><strong>Статус:</strong> {{ task.get_status_display }}</p>
+    <p><strong>Приоритет:</strong> {{ task.get_priority_display }}</p>
+    <p><strong>Дедлайн:</strong> {{ task.deadline|date:"d.m.Y H:i"|default:"Не установлен" }}</p>
+    
+    <h3>Описание задачи</h3>
+    <p>{{ task.description|linebreaks }}</p>
+</div>
+
+<div style="margin-top: 30px;">
+    <h3>Ход выполнения</h3>
+    {% for step in progress_steps %}
+    <div style="border-left: 3px solid #007bff; padding: 10px; margin: 10px 0;">
+        <strong>{{ step.author.username }}</strong> 
+        <small>{{ step.created_at|date:"d.m.Y H:i" }}</small>
+        <p>{{ step.description|linebreaks }}</p>
+    </div>
+    {% empty %}
+    <p>Пока нет записей о выполнении.</p>
+    {% endfor %}
+</div>
+
+<div style="margin-top: 30px;">
+    <h3>Комментарии</h3>
+    {% for comment in comments %}
+    <div style="border-left: 3px solid #28a745; padding: 10px; margin: 10px 0;">
+        <strong>{{ comment.author.username }}</strong> 
+        <small>{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+    {% empty %}
+    <p>Пока нет комментариев.</p>
+    {% endfor %}
+</div>
+
+<a href="{% url 'tasks:project_detail' task.project.id %}">← Назад к проекту</a>
+{% endblock %}
