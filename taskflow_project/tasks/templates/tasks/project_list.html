@@ -1,0 +1,17 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Мои проекты</h2>
+
+{% if projects %}
+    {% for project in projects %}
+    <div class="project">
+        <h3><a href="{% url 'tasks:project_detail' project.id %}">{{ project.name }}</a></h3>
+        <p>{{ project.description|default:"Описание отсутствует" }}</p>
+        <small>Задач: {{ project.tasks.count }}</small>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>У вас пока нет проектов. <a href="/admin/tasks/project/add/">Создайте первый проект в админке</a></p>
+{% endif %}
+{% endblock %}

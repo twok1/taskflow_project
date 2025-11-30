@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TaskFlow - Менеджер задач</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #f4f4f4; padding: 10px; margin-bottom: 20px; }
+        .project { border: 1px solid #ddd; padding: 15px; margin: 10px 0; }
+        .task { border-left: 3px solid #007bff; padding: 10px; margin: 5px 0; }
+        .status-todo { border-left-color: #dc3545; }
+        .status-in_progress { border-left-color: #ffc107; }
+        .status-done { border-left-color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>TaskFlow</h1>
+        <p>Добро пожаловать, {{ user.username }}! <a href="/admin/logout/">Выйти</a></p>
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
