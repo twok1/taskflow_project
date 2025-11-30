@@ -1,0 +1,23 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>{{ project.name }}</h2>
+<p>{{ project.description|default:"Описание отсутствует" }}</p>
+
+<h3>Задачи проекта</h3>
+{% for task in tasks %}
+<div class="task status-{{ task.status }}">
+    <h4><a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a></h4>
+    <p>{{ task.description|truncatewords:20 }}</p>
+    <small>
+        Статус: {{ task.get_status_display }} | 
+        Приоритет: {{ task.get_priority_display }} |
+        Создана: {{ task.created_at|date:"d.m.Y" }}
+    </small>
+</div>
+{% empty %}
+<p>В этом проекте пока нет задач.</p>
+{% endfor %}
+
+<a href="{% url 'tasks:project_list' %}">← Назад к списку проектов</a>
+{% endblock %}
